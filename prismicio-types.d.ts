@@ -202,6 +202,17 @@ interface SkateboardDocumentData {
     prismic.FieldState,
     never
   >;
+
+  /**
+   * Color HEX field in *Skateboard*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skateboard.color_hex
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  color_hex: prismic.KeyTextField;
 }
 
 /**

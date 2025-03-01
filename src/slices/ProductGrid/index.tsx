@@ -17,6 +17,7 @@ export type ProductGridProps = SliceComponentProps<Content.ProductGridSlice>;
 /**
  * Component for "ProductGrid" Slices.
  */
+
 const ProductGrid: FC<ProductGridProps> = ({ slice }) => {
   return (
     <Bounded
