@@ -25,7 +25,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="bg-texture relative h-dvh overflow-hidden bg-brand-pink text-zinc-800"
+      className="bg-texture relative h-dvh overflow-hidden bg-brand-pink text-zinc-800 pt-44 md:pt-32"
     >
       <div className="absolute inset-0 flex items-center pt-16">
         <WideLogo className="hidden w-full text-brand-purple opacity-20 mix-blend-multiply lg:block" />

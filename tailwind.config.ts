@@ -33,6 +33,8 @@ export default {
         "brand-pink": "#f7d0e9",
         "brand-purple": "#692e54",
         "brand-gray": "#fffdf9",
+        "brand-aqua": "#7393bf",
+        "brand-green": "#236638",
       },
       keyframes: {
         squiggle: {

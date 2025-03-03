@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { isFilled, asImageSrc } from "@prismicio/client";
+import { isFilled, asImageSrc, Content } from "@prismicio/client";
 import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
@@ -15,6 +15,7 @@ export default async function Page() {
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
   const page = await client.getSingle("homepage");
+  const slices = bundleParallaxCards(page.data.slices);
 
   return {
     title: page.data.meta_title,
@@ -31,4 +32,38 @@ export async function generateMetadata(): Promise<Metadata> {
         : undefined,
     },
   };
+}
+
+type ParallaxCardsBundleSlice = {
+  id: string;
+  slice_type: "parallax_cards_bundle";
+  slices: Content.ParallaxCardsSlice[];
+};
+
+function bundleParallaxCards(
+  slices: Content.HomepageDocumentDataSlicesSlice[],
+) {
+  const result: (
+    | Content.HomepageDocumentDataSlicesSlice
+    | ParallaxCardsBundleSlice
+  )[] = [];
+
+  for (const slice of slices) {
+    if (slice.slice_type !== "parallax_cards") {
+      result.push(slice);
+      continue;
+    }
+    const bundle: (typeof result)[number] = result[result.length - 1];
+
+    if (bundle?.slice_type === "parallax_cards_bundle") {
+      bundle.slices.push(slice);
+    } else {
+      result.push({
+        id: crypto.randomUUID(),
+        slice_type: "parallax_cards_bundle",
+        slices: [slice],
+      });
+    }
+  }
+  return result;
 }

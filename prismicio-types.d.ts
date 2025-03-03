@@ -4,7 +4,10 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomepageDocumentDataSlicesSlice = ProductGridSlice | HeroSlice;
+type HomepageDocumentDataSlicesSlice =
+  | ParallaxCardsSlice
+  | ProductGridSlice
+  | HeroSlice;
 
 /**
  * Content for Homepage documents
@@ -299,6 +302,193 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *ParallaxCard → Default → Primary*
+ */
+export interface ParallaxCardsSliceDefaultPrimary {
+  /**
+   * Theme field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.theme
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  theme: prismic.SelectField<"Blue" | "Orange" | "Aqua" | "Green">;
+
+  /**
+   * Heading field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.TitleField;
+
+  /**
+   * Body field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Background Image field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.background_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  background_image: prismic.ImageField<never>;
+
+  /**
+   * Foreground Image field in *ParallaxCard → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.default.primary.foreground_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foreground_image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for ParallaxCard Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ParallaxCardsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ParallaxCardsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Primary content in *ParallaxCard → Image on Left → Primary*
+ */
+export interface ParallaxCardsSliceImageOnLeftPrimary {
+  /**
+   * Theme field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.theme
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  theme: prismic.SelectField<"Blue" | "Orange" | "Aqua" | "Green">;
+
+  /**
+   * Heading field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.TitleField;
+
+  /**
+   * Body field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Button Link field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Background Image field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.background_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  background_image: prismic.ImageField<never>;
+
+  /**
+   * Foreground Image field in *ParallaxCard → Image on Left → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: parallax_cards.imageOnLeft.primary.foreground_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foreground_image: prismic.ImageField<never>;
+}
+
+/**
+ * Image on Left variation for ParallaxCard Slice
+ *
+ * - **API ID**: `imageOnLeft`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ParallaxCardsSliceImageOnLeft = prismic.SharedSliceVariation<
+  "imageOnLeft",
+  Simplify<ParallaxCardsSliceImageOnLeftPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ParallaxCard*
+ */
+type ParallaxCardsSliceVariation =
+  | ParallaxCardsSliceDefault
+  | ParallaxCardsSliceImageOnLeft;
+
+/**
+ * ParallaxCard Shared Slice
+ *
+ * - **API ID**: `parallax_cards`
+ * - **Description**: ParallaxCards
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ParallaxCardsSlice = prismic.SharedSlice<
+  "parallax_cards",
+  ParallaxCardsSliceVariation
+>;
+
+/**
  * Item in *ProductGrid → Default → Primary → Product*
  */
 export interface ProductGridSliceDefaultPrimaryProductItem {
@@ -414,6 +604,12 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      ParallaxCardsSlice,
+      ParallaxCardsSliceDefaultPrimary,
+      ParallaxCardsSliceImageOnLeftPrimary,
+      ParallaxCardsSliceVariation,
+      ParallaxCardsSliceDefault,
+      ParallaxCardsSliceImageOnLeft,
       ProductGridSlice,
       ProductGridSliceDefaultPrimaryProductItem,
       ProductGridSliceDefaultPrimary,

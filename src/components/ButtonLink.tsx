@@ -46,7 +46,7 @@ export function ButtonLink({
             {icon === "skateboard" && <SkateboardIcon />}
             {icon === "plus" && <FaPlus />}
           </div>
-          <div className="w-px self-stretch bg-black/25" />
+          <div className="w-px self-stretch bg-black/15" />
         </>
       ) : null}
       {children}
