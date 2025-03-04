@@ -4,7 +4,7 @@ import clsx from "clsx";
 type BoundedProps = {
   as?: ElementType;
   className?: string;
-  style?: CSSProperties;
+  style?: CSSProperties & { [key: string]: number };
   children: ReactNode;
 };
 

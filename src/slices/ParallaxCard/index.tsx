@@ -22,13 +22,14 @@ export type ParallaxCardsProps =
  * Component for "ParallaxCards" Slices.
  */
 
-const ParallaxCards: FC<ParallaxCardsProps> = ({ slice }) => {
+const ParallaxCards: FC<ParallaxCardsProps> = ({ slice, index }) => {
   const theme = slice.primary.theme;
   return (
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className={clsx(
+        "sticky top-[calc(var(--index)*2rem)]",
         theme === "Aqua" && "bg-brand-aqua",
         "text-white",
         theme === "Orange" && "bg-brand-orange",
@@ -39,6 +40,7 @@ const ParallaxCards: FC<ParallaxCardsProps> = ({ slice }) => {
         "text-white",
         "bg-texture",
       )}
+      style={{"--index": index}}
     >
       <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-24">
         <div
