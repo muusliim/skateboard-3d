@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { isFilled, asImageSrc, Content } from "@prismicio/client";
-import { SliceZone } from "@prismicio/react";
+import { SliceComponentProps, SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
@@ -8,14 +8,28 @@ import { components } from "@/slices";
 export default async function Page() {
   const client = createClient();
   const page = await client.getSingle("homepage");
+  const slices = bundleParallaxCards(page.data.slices);
 
-  return <SliceZone slices={page.data.slices} components={components} />;
+  return (
+    <SliceZone
+      slices={slices}
+      components={{
+        ...components,
+        parallax_cards_bundle: ({
+          slice,
+        }: SliceComponentProps<ParallaxCardsBundleSlice>) => (
+          <div>
+            <SliceZone slices={slice.slices} components={components} />
+          </div>
+        ),
+      }}
+    />
+  );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
   const page = await client.getSingle("homepage");
-  const slices = bundleParallaxCards(page.data.slices);
 
   return {
     title: page.data.meta_title,

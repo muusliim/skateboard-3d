@@ -27,7 +27,7 @@ export async function Header() {
             ))}
           </ul>
         </nav>
-        <div className="place-self-end">
+        <div className="justify-self-end ">
           <ButtonLink
             href=""
             icon="cart"
