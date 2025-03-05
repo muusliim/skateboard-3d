@@ -10,7 +10,7 @@ export async function Header() {
   const settings = await client.getSingle("settings");
 
   return (
-    <header className="header absolute left-0 right-0 top-0 z-50 ~h-32/48 ~px-4/6 ~py-4/6 md:h-32">
+    <header className="header absolute left-0 right-0 top-0 z-50 ~h-32/48 ~px-6/8 ~py-4/8 md:h-32">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-[auto,auto] items-center gap-6 md:grid-cols-[1fr,auto,1fr]">
         <Link className="place-self-start" href="/">
           <Logo className="text-brand-purple ~h-12/20" />

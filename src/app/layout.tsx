@@ -3,6 +3,7 @@ import { Neucha, Cormorant_Infant } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { SVGFilters } from "@/components/SVGFilters";
+import { Footer } from "@/components/Footer";
 
 const neucha = Neucha({
   subsets: ["cyrillic"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <main>
           <Header />
           {children}
+          <Footer />
         </main>
         <SVGFilters />
       </body>

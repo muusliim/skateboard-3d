@@ -29,7 +29,7 @@ const ParallaxCards: FC<ParallaxCardsProps> = ({ slice, index }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className={clsx(
-        "sticky top-[calc(var(--index)*2rem)]",
+        "sticky top-[calc(var(--index)*1.8rem)]",
         theme === "Aqua" && "bg-brand-aqua",
         "text-white",
         theme === "Orange" && "bg-brand-orange",
@@ -40,7 +40,7 @@ const ParallaxCards: FC<ParallaxCardsProps> = ({ slice, index }) => {
         "text-white",
         "bg-texture",
       )}
-      style={{"--index": index}}
+      style={{ "--index": index }}
     >
       <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-24">
         <div
