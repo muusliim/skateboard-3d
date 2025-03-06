@@ -79,13 +79,15 @@ export function FooterPhysics({ boards = [], className }: FooterPhysicsProps) {
     engine.current.gravity.y = 0.5; // Gravity on vertical axis
 
     // Create Matter.js renderer
+    const pixelRatio = Math.min(Math.floor(window.devicePixelRatio), 2);
+
     const render = Render.create({
       element: scene.current, // attach to our scene div
       engine: engine.current,
       options: {
-        width: clientWidth,
-        height: clientHeigh,
-        pixelRatio: window.devicePixelRatio,
+        width: clientWidth * pixelRatio,
+        height: clientHeigh * pixelRatio,
+        pixelRatio: pixelRatio,
         wireframes: false,
         background: "transparent",
       },
@@ -97,19 +99,24 @@ export function FooterPhysics({ boards = [], className }: FooterPhysicsProps) {
 
     // Add mouse interaction for dragging boards
     const mouse = Mouse.create(render.canvas);
-    // @ts-expect-error - matter.js has incorrect types
-    mouse.element.removeEventListener("wheel", mouse.mousewheel);
 
+    // @ts-expect-error - matter.js has incorrect types
+    mouse.element.removeEventListener("wheel", mouse.mousewheel); //для возможности скролла страницы
+    
     const mouseConstraint = MouseConstraint.create(engine.current, {
-      mouse,
+      mouse: mouse,
       constraint: {
         stiffness: 0.2,
-        render: { visible: false },
+        render: { visible: true },
       },
     });
+
     World.add(engine.current.world, mouseConstraint);
 
+    render.mouse = mouse;
+
     window.addEventListener("resize", onResize);
+
 
     function onResize() {
       if (!scene.current) return;
@@ -118,11 +125,11 @@ export function FooterPhysics({ boards = [], className }: FooterPhysicsProps) {
       const ch = scene.current.clientHeight;
 
       // Update canvas and renderer dimensions
-      render.canvas.width = cw;
-      render.canvas.height = ch;
-      render.options.width = cw;
-      render.options.height = ch;
-      Render.setPixelRatio(render, window.devicePixelRatio);
+      render.canvas.width = cw * pixelRatio;
+      render.canvas.height = ch * pixelRatio;
+      render.options.width = cw * pixelRatio;
+      render.options.height = ch * pixelRatio;
+      Render.setPixelRatio(render, pixelRatio);
 
       World.remove(engine.current.world, boundaries);
       boundaries = createBoundaries(cw, ch);
@@ -181,7 +188,7 @@ export function FooterPhysics({ boards = [], className }: FooterPhysicsProps) {
         chamfer: { radius: 40 }, // Rounded corners for accurate collision
         angle: rotation,
         restitution: 0.8, // Bounciness
-        friction: 0.005, // minimal friction
+        friction: 0.005, //
         render: {
           sprite: {
             texture,
