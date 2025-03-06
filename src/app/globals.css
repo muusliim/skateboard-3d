@@ -67,12 +67,24 @@
 
 .skater-scribble {
   opacity: 0.9;
-  stroke-dashoffset: -2300;
-  stroke-dasharray: 2300;
+  stroke-dashoffset: -2500;
+  stroke-dasharray: 2500;
   transition: stroke-dashoffset 1.2s ease-in-out 0.1s;
   transform-origin: center;
 }
 
 .skater:hover .skater-scribble {
   stroke-dashoffset: 0;
+}
+
+.slide-in-animation-hidden {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+@keyframes slide-in-animation-show {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

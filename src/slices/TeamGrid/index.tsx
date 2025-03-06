@@ -5,6 +5,7 @@ import { Bounded } from "@/components/Bounded";
 import { Heading } from "@/components/Heading";
 import { createClient } from "@/prismicio";
 import { Skater } from "./Skater";
+import SlideInAnimation from "@/components/SlideInAnimation";
 
 /**
  * Props for `TeamGrid`.
@@ -24,18 +25,24 @@ const TeamGrid: FC<TeamGridProps> = async ({ slice }): Promise<JSX.Element> => {
       data-slice-variation={slice.variation}
       className="bg-texture bg-brand-navy"
     >
-      <Heading
-        as="h2"
-        size="lg"
-        className="text-center font-black text-white ~mb-4/6"
-      >
-        <PrismicText field={slice.primary.heading} />
-      </Heading>
+      <SlideInAnimation>
+        <Heading
+          as="h2"
+          size="lg"
+          className="text-center font-black text-white ~mb-4/6"
+        >
+          <PrismicText field={slice.primary.heading} />
+        </Heading>
+      </SlideInAnimation>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {skaters.map((skater, i) => (
           <Fragment key={i}>
-            {skater.data.name && <Skater skater={skater} index={i} />}
+            {skater.data.name && (
+              <SlideInAnimation>
+                <Skater skater={skater} index={i} />
+              </SlideInAnimation>
+            )}
           </Fragment>
         ))}
       </div>

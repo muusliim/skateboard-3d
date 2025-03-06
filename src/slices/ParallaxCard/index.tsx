@@ -11,6 +11,7 @@ import { Bounded } from "@/components/Bounded";
 import { Heading } from "@/components/Heading";
 import { ButtonLink } from "@/components/ButtonLink";
 import { ParallaxImage } from "./ParallaxImage";
+import SlideInAnimation from "@/components/SlideInAnimation";
 
 /**
  * Props for `ParallaxCards`.
@@ -49,9 +50,11 @@ const ParallaxCards: FC<ParallaxCardsProps> = ({ slice, index }) => {
             slice.variation === "imageOnLeft" && "md:order-2",
           )}
         >
-          <Heading size="lg" as="h2" className="font-extrabold">
-            <PrismicText field={slice.primary.heading} />
-          </Heading>
+          <SlideInAnimation>
+            <Heading size="lg" as="h2" className="font-extrabold">
+              <PrismicText field={slice.primary.heading} />
+            </Heading>
+          </SlideInAnimation>
           <div className="mt-2 max-w-md text-lg leading-normal">
             <PrismicRichText field={slice.primary.body} />
           </div>
