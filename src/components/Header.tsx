@@ -27,9 +27,10 @@ export async function Header() {
             ))}
           </ul>
         </nav>
-        <div className="justify-self-end ">
+        <div className="justify-self-end">
           <ButtonLink
-            href=""
+            href={"https://github.com/muusliim"}
+            rel="noopener noreferrer"
             icon="cart"
             color="purple"
             aria-label="Корзина (2)"
