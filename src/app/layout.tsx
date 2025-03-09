@@ -30,8 +30,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${neucha.variable} ${cormorant.variable} font-mono font-medium text-zinc-800 antialiased`}
       >
         <main>

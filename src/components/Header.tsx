@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { PrismicNextLink } from "@prismicio/next";
+import { createClient } from "@/prismicio";
 import { ButtonLink } from "./ButtonLink";
 import { Logo } from "./Logo";
-import { createClient } from "@/prismicio";
-import { PrismicNextLink } from "@prismicio/next";
 
 export async function Header() {
   const client = createClient();
@@ -22,7 +22,7 @@ export async function Header() {
           <ul className="flew-wrap flex items-center justify-center gap-6">
             {settings.data.navigation.map((item) => (
               <li key={item.link.text}>
-                <PrismicNextLink field={item.link} className="~text-lg/xl" />
+                <PrismicNextLink field={item.link} className="~text-base/xl" />
               </li>
             ))}
           </ul>

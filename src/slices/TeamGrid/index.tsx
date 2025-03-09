@@ -39,9 +39,7 @@ const TeamGrid: FC<TeamGridProps> = async ({ slice }): Promise<JSX.Element> => {
         {skaters.map((skater, i) => (
           <Fragment key={i}>
             {skater.data.name && (
-              <SlideInAnimation>
                 <Skater skater={skater} index={i} />
-              </SlideInAnimation>
             )}
           </Fragment>
         ))}
