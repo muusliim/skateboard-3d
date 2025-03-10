@@ -22,7 +22,7 @@ export async function Header() {
           <ul className="flew-wrap flex items-center justify-center gap-6">
             {settings.data.navigation.map((item) => (
               <li key={item.link.text}>
-                <PrismicNextLink field={item.link} className="~text-base/xl" />
+                <PrismicNextLink field={item.link} className="~text-base/xl hover:underline" />
               </li>
             ))}
           </ul>

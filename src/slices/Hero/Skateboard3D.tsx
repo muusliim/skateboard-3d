@@ -3,9 +3,10 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import { Canvas, ThreeEvent, useThree } from "@react-three/fiber";
-import { ContactShadows, Environment } from "@react-three/drei";
+import { ContactShadows, Environment, Html } from "@react-three/drei";
 import { Skateboard } from "@/components/Skateboard";
 import { Hotspot } from "./Hotspot";
+import { SVGFloorPath } from "./SVGFloorPath";
 
 const _initialCameraPosition = [1.5, 1, 1.4] as const;
 
@@ -56,7 +57,43 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
 
   useEffect(() => {
     camera.lookAt(new THREE.Vector3(-0.3, 0.15, 0));
+
+    function setCameraZoom() {
+      const scale = Math.max(Math.min(1100 / window.innerWidth, 2.2), 1);
+
+      camera.position.x = _initialCameraPosition[0] * scale;
+      camera.position.y = _initialCameraPosition[1] * scale;
+      camera.position.z = _initialCameraPosition[2] * scale;
+    }
+
+    window.addEventListener("resize", setCameraZoom);
+    setCameraZoom();
+
+    return () => {
+      window.removeEventListener("resize", setCameraZoom);
+    };
   }, [camera]);
+
+  //Анимация движения скейта по оси X
+  useEffect(() => {
+    if (!containerRef.current || !originRef.current) return;
+
+    gsap.to(containerRef.current.position, {
+      x: 0.2,
+      repeat: -1,
+      yoyo: true,
+      duration: 3,
+      ease: "sine.inOut",
+    });
+
+    gsap.to(originRef.current.rotation, {
+      y: 0.05,
+      repeat: -1,
+      yoyo: true,
+      duration: 3,
+      ease: "sine.inOut",
+    });
+  }, []);
 
   // Анимация при нажатии на скейт
   function onSkateClick(event: ThreeEvent<MouseEvent>) {
@@ -100,19 +137,15 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
         ease: "none",
       })
       .to(board.rotation, {
-        x: 0.45,
-        duration: 0.72,
+        x: 0.41,
+        duration: 0.62,
         ease: "power2.in",
       })
-      .to(
-        board.rotation,
-        {
-          x: 0,
-          duration: 0.15,
-          ease: "none",
-        },
-        "-=0.038",
-      );
+      .to(board.rotation, {
+        x: 0,
+        duration: 0.23,
+        ease: "none",
+      });
   }
 
   //Анимация при нажатии на среднюю часть скейта
@@ -148,7 +181,7 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
           duration: 0.12,
           ease: "none",
         },
-        "-=0.059",
+        "-=0.089",
       );
   }
 
@@ -183,7 +216,7 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
           duration: 0.12,
           ease: "none",
         },
-        "-=0.059",
+        "-=0.074",
       );
   }
 
@@ -224,7 +257,7 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
             />
             {/* FRONT SKATE ANIMATION */}
             <Hotspot
-              position={[0, 0.38, 0.9]}
+              position={[0.1, 0.38, 0.9]}
               isVisible={!animated && showHotspot.front}
               color={"#2123b8"}
             />
@@ -244,7 +277,7 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
             </mesh>
             {/* BACK SKATE ANIMATION */}
             <Hotspot
-              position={[0, 0.38, -0.9]}
+              position={[0.05, 0.38, -0.9]}
               isVisible={!animated && showHotspot.back}
               color={"#cb3e5c"}
             />
@@ -256,6 +289,21 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
         </group>
       </group>
       <ContactShadows opacity={0.5} position={[0, -0.09, 0]} />
+
+      <group
+        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+        position={[-0.4, -0.1, -0.5]}
+        scale={0.2}
+      >
+        <Html
+          wrapperClass="pointer-events-none"
+          transform
+          zIndexRange={[0, 0]}
+          occlude="blending"
+        >
+          <SVGFloorPath />
+        </Html>
+      </group>
     </group>
   );
 }

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Neucha, Cormorant_Infant } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
 import { SVGFilters } from "@/components/SVGFilters";
-import { Footer } from "@/components/Footer";
 
 const neucha = Neucha({
   subsets: ["cyrillic"],
@@ -35,11 +33,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${neucha.variable} ${cormorant.variable} font-mono font-medium text-zinc-800 antialiased`}
       >
-        <main>
-          <Header />
-          {children}
-          <Footer />
-        </main>
+        <main>{children}</main>
         <SVGFilters />
       </body>
     </html>
