@@ -17,6 +17,7 @@ type SkateboardProps = {
   truckColor: string;
   boltColor: string;
   wheelSpin?: boolean;
+  pose?: "side" | "front";
 };
 type GLTFResult = GLTF & {
   nodes: {
@@ -42,7 +43,10 @@ export function Skateboard({
   truckColor,
   boltColor,
   wheelSpin = false,
+  pose = "front",
 }: SkateboardProps) {
+
+
   const wheelRefs = useRef<THREE.Object3D[]>([]);
 
   const { nodes } = useGLTF("/skateboard.gltf") as GLTFResult;
@@ -97,7 +101,6 @@ export function Skateboard({
   const deckTextureIndex = deckTextureURLs.findIndex(
     (url) => url === deckTextureURL,
   );
-
   const deckTexture = deckTextures[deckTextureIndex];
 
   //textures
@@ -169,8 +172,26 @@ export function Skateboard({
     });
   }, [wheelTexture]);
 
+  //pose for skateboard
+  const position = useMemo(() => {
+    return {
+      front: {
+        position: [0, 0, 0],
+        rotation: [0, 0, 0],
+      },
+      side: {
+        position: [0, 0.3, 0],
+        rotation: [0, 0, Math.PI / 2],
+      },
+    } as const;
+  }, []);
+
   return (
-    <group dispose={null}>
+    <group
+      dispose={null}
+      rotation={position[pose].rotation}
+      position={position[pose].position}
+    >
       <group name="Scene">
         <mesh
           name="GripTape"

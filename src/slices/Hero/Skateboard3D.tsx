@@ -28,7 +28,7 @@ export function Skateboard3D({
         camera={{ position: _initialCameraPosition, fov: 50 }}
         className="min-h-[50rem] w-full"
       >
-        <Suspense fallback={null}>
+        <Suspense fallback={<Html className="~text-xl/4xl font-extrabold text-brand-purple">ЗАГРУЗКА...</Html>}>
           <Scene
             deckTexture={deckTexture}
             wheelTexture={wheelTexture}
