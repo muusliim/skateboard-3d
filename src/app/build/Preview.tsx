@@ -82,6 +82,48 @@ export default function Preview({
   const boltColor = selectedBolt?.color ?? _default_bolt_color;
 
   const cameraControls = useRef<CameraControls>(null);
+//АНИмация камеры при смены деки
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(0, 0.3, 0),
+      new THREE.Vector3(1.5, 0.8, 0),
+    );
+  }, [selectedDeck]);
+
+  //Анимация камеры при смены колес
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(-0.52, -0.8, -0.1),
+      new THREE.Vector3(0.1, 0.9, 0.9),
+    );
+  }, [selectedWheel]);
+
+  //Анимация камеры при смены подвески
+  useEffect(() => {
+    setCameraControls(
+        new THREE.Vector3(-0.72, -0.9, -1.1),
+        new THREE.Vector3(0.1, 0.56, 1.1),
+    );
+  }, [selectedTruck]);
+  // Анимация камеры при смены болтов
+  useEffect(() => {
+    setCameraControls(
+        new THREE.Vector3(-0.25, 0.3, 0.62),
+        new THREE.Vector3(-0.5, 0.35, 0.8),
+    );
+  }, [selectedBolt]);
+
+  function setCameraControls(target: THREE.Vector3, position: THREE.Vector3) {
+    if (!cameraControls.current) return;
+
+    cameraControls.current.setTarget(target.x, target.y, target.z, true); // true для установки transition
+    cameraControls.current.setPosition(
+      position.x,
+      position.y,
+      position.z,
+      true,
+    );
+  }
 
   return (
     <Canvas shadows camera={{ position: [2.5, 1, 0], fov: 50 }}>

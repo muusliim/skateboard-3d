@@ -1,22 +1,38 @@
 import Link from "next/link";
+import { createClient } from "@/prismicio";
+import { asImageSrc } from "@prismicio/client";
 import { Logo } from "@/components/Logo";
 import { Heading } from "@/components/Heading";
 import { ButtonLink } from "@/components/ButtonLink";
-import { createClient } from "@/prismicio";
 import Preview from "./Preview";
-import { asImageSrc } from "@prismicio/client";
 import Controls from "./Controls";
+import Loading from "./Loading";
 
-export default async function Page() {
+type SearchParams = {
+  wheel?: string;
+  deck?: string;
+  truck?: string;
+  bolt?: string;
+};
+
+export default async function Page(props: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const searchParams = await props.searchParams;
+
   const client = createClient();
   const customizer = await client.getSingle("board_customizer");
   const { wheels, decks, metals } = customizer.data;
 
   // Устанавливаем дефолтные значения
-  const defaultWheel = wheels[0];
-  const defaultDeck = decks[0];
-  const defaultTruck = metals[0];
-  const defaultBolt = metals[0];
+  const defaultWheel =
+    wheels.find((wheel) => wheel.uid === searchParams.wheel) ?? wheels[0];
+  const defaultDeck =
+    decks.find((deck) => deck.uid === searchParams.deck) ?? decks[0];
+  const defaultTruck =
+    metals.find((metal) => metal.uid === searchParams.truck) ?? metals[0];
+  const defaultBolt =
+    metals.find((metal) => metal.uid === searchParams.bolt) ?? metals[0];
 
   const wheelTextureURLs = wheels
     .map((wheel) => asImageSrc(wheel?.texture))
@@ -55,10 +71,16 @@ export default async function Page() {
           metals={metals}
           className="mb-6"
         />
-        <ButtonLink href="" color="orange" icon="plus">
+        <ButtonLink
+          href={"https://github.com/muusliim"}
+          rel="noopener noreferrer"
+          color="orange"
+          icon="plus"
+        >
           Добавить в корзину
         </ButtonLink>
       </div>
+      <Loading />
     </div>
   );
 }
