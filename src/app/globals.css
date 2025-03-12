@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 .bg-texture {
   background-image: url('/bg-texture.webp');
   background-size: 720px 460px;
   background-position: center;
   background-repeat: repeat;
 }
+
+
 
 .button-cutout {
   position: relative;

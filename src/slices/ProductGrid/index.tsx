@@ -25,6 +25,7 @@ const ProductGrid: FC<ProductGridProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="bg-texture bg-brand-gray"
+      id="products"
     >
       <SlideInAnimation>
         <Heading as="h2" className="text-center font-black ~mb-4/6">

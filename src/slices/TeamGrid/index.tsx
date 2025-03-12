@@ -24,6 +24,7 @@ const TeamGrid: FC<TeamGridProps> = async ({ slice }): Promise<JSX.Element> => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="bg-texture bg-brand-navy"
+      id="team"
     >
       <SlideInAnimation>
         <Heading
@@ -38,9 +39,7 @@ const TeamGrid: FC<TeamGridProps> = async ({ slice }): Promise<JSX.Element> => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {skaters.map((skater, i) => (
           <Fragment key={i}>
-            {skater.data.name && (
-                <Skater skater={skater} index={i} />
-            )}
+            {skater.data.name && <Skater skater={skater} index={i} />}
           </Fragment>
         ))}
       </div>
