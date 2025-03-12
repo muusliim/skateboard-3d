@@ -28,7 +28,7 @@ export function Skateboard3D({
         camera={{ position: _initialCameraPosition, fov: 50 }}
         className="min-h-[50rem] w-full"
       >
-        <Suspense fallback={<Html className="~text-xl/4xl font-extrabold text-brand-purple">ЗАГРУЗКА...</Html>}>
+        <Suspense fallback={<Html className="~text-xl/4xl font-extrabold font-sans animate-squiggle text-brand-purple">ЗАГРУЗКА...</Html>}>
           <Scene
             deckTexture={deckTexture}
             wheelTexture={wheelTexture}
@@ -59,7 +59,7 @@ function Scene({ deckTexture, wheelTexture, truckColor, boltColor }: Props) {
     camera.lookAt(new THREE.Vector3(-0.3, 0.15, 0));
 
     function setCameraZoom() {
-      const scale = Math.max(Math.min(1100 / window.innerWidth, 2.2), 1);
+      const scale = Math.max(Math.min(1000 / window.innerWidth, 2.2), 1);
 
       camera.position.x = _initialCameraPosition[0] * scale;
       camera.position.y = _initialCameraPosition[1] * scale;
